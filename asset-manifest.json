@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/consip-new/static/css/main.0cdf6429.css",
+    "main.js": "/consip-new/static/js/main.99a257e0.js",
+    "static/media/earth.jpg": "/consip-new/static/media/earth.e1300e657f33f8f028f9.jpg",
+    "static/media/aboutus.jpg": "/consip-new/static/media/aboutus.6181a2fa86d63e91ec26.jpg",
+    "index.html": "/consip-new/index.html",
+    "main.0cdf6429.css.map": "/consip-new/static/css/main.0cdf6429.css.map",
+    "main.99a257e0.js.map": "/consip-new/static/js/main.99a257e0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0cdf6429.css",
+    "static/js/main.99a257e0.js"
+  ]
+}
