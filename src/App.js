@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import ParticlesComponent from "./components/particle";
 
+import { Header } from "./components/header";
+import { Card } from "./components/cards";
+import { AboutUs } from "./components/about";
+import { Expertise } from "./components/expertise";
+import { Footer } from "./components/footer";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <ParticlesComponent particleColor={"#ffffff"} />
+      <div id="home" className="container1-contents">
+        <div className="container">
+          <div class="containerC">
+            <div className="stack" style={{ "--stacks": 3 }}>
+              <span style={{ "--index": 0 }}>THE AGE OF TRUST</span>
+              <span style={{ "--index": 1 }}>THE AGE OF TRUST</span>
+              <span style={{ "--index": 2 }}>THE AGE OF TRUST</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Card />
+      <AboutUs />
+      <Expertise />
+      <Footer />
+      <div id="overlay"></div>
     </div>
   );
 }
