@@ -1,112 +1,102 @@
+import React, { useState, useEffect } from 'react';
 import SettingsIcon from "@mui/icons-material/Settings";
 import RoomPreferencesIcon from "@mui/icons-material/RoomPreferences";
 import OnlinePredictionIcon from "@mui/icons-material/OnlinePrediction";
 import LinkIcon from "@mui/icons-material/Link";
 import AssistantIcon from "@mui/icons-material/Assistant";
-export const Card = () => {
+import { HiddenCardSection } from './hiddenCardSection';
+const items = [
+    {
+        icon:<SettingsIcon color="primary" sx={{ fontSize: 50 }} />,
+        copy:'Manufacturing'
+    },{
+        icon:<RoomPreferencesIcon color="primary" sx={{ fontSize: 50 }} />,
+        copy:'Services'
+    },{
+        icon:<OnlinePredictionIcon color="primary" sx={{ fontSize: 50 }} />,
+        copy:'Technology'
+    },{
+        icon:<LinkIcon color="primary" sx={{ fontSize: 50 }} />,
+        copy:'Supply Chain'
+    },{
+        icon:<AssistantIcon color="primary" sx={{ fontSize: 50 }} />,
+        copy:'Consulting & Audit'
+    },
+];
+
+const Card = (props) => {
+  return (
+                   <a href="#hidden-services" onClick={() => props.setCardName(props.copy)}>
+
+      <li className="card card-carousal" onClick={() => props.setCardName(props.copy)}>
+              <div>
+                  <div className="logo-div logo-div-carousal">
+                      {props.icon}
+                </div>
+                  <h2>{props.copy}</h2>
+
+              </div>
+         
+      </li>
+         </a>
+  )
+}
+
+export const Cards = () => {
+  const [moveClass, setMoveClass] = useState('');
+  const [carouselItems, setCarouselItems] = useState(items);
+const [cardName, setCardName] = useState('');
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--num', carouselItems.length);
+  }, [carouselItems])
+  
+  const handleAnimationEnd = () => {
+    if(moveClass === 'prev'){
+      shiftNext([...carouselItems]);
+    }else if(moveClass === 'next'){
+      shiftPrev([...carouselItems]);
+    }
+    setMoveClass('')
+  }
+  
+  const shiftPrev = (copy) => {
+    let lastcard = copy.pop();
+    copy.splice(0, 0, lastcard);
+    setCarouselItems(copy);
+  }
+  
+  const shiftNext = (copy) => {
+    let firstcard = copy.shift();
+    copy.splice(copy.length, 0, firstcard);
+    setCarouselItems(copy);
+  }
+  
     return (
-        <div id="services" className="container2-contents">
-        <div className="container">
+      <>
+        <div className="container2-contents">
+            <div className="container">
 
-          <h2>Services</h2>
-        </div>
+                <h2>Services</h2>
 
-        <div className="container card-container">
-          <div className="card">
-            <div className="logo-div">
-              <SettingsIcon color="primary" sx={{ fontSize: 50 }} />
-            </div>
-            <h2>Manufacturing</h2>
-            <div className="card-details">
-              <h3>EMI/RFI Filters</h3>
-              <p>
-                Manage electromagnetic and radio-frequency interference with
-                specialized filters
-              </p>
-              <h3>Wireless Data Loggers</h3>
-              <p>Advanced solutions for remote data monitoring and logging</p>
-              <h3>Customization</h3>
-              <p>Tailored solutions to fit specific instrument profiles</p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="logo-div">
-              <RoomPreferencesIcon color="primary" sx={{ fontSize: 50 }} />
-            </div>
-
-            <h2>Services</h2>
-            <div className="card-details">
-              <h3>Computer System Validation (CSV)</h3>
-              <p>Ensuring systems operate within regulatory guidelines</p>
-              <h3>Thermal Validation</h3>
-              <p>
-                Validating temperature-controlled environments and equipment
-              </p>
-              <h3>Calibration Services</h3>
-              <p>Precision calibration for various instruments and devices</p>
-              <h3>HVAC Validation</h3>
-              <p>
-                Comprehensive validation for heating, ventilation, and air
-                conditioning systems
-              </p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="logo-div">
-              <OnlinePredictionIcon color="primary" sx={{ fontSize: 50 }} />
-            </div>
-            <h2>Technology</h2>
-            <div className="card-details">
-              <h3>Software Development</h3>
-              <p>Creating custom software solutions for various platforms</p>
-              <h3>Software Testing</h3>
-              <p>
-                Rigorous testing to ensure software reliability and performance
-              </p>
-              <h3>Automation</h3>
-              <p>
-                Implementing automated systems for improved efficiency and
-                accuracy
-              </p>
-              <h3>Tech Support</h3>
-              <p>
-                Providing ongoing technical support for all IT and software
-                needs
-              </p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="logo-div">
-              <LinkIcon color="primary" sx={{ fontSize: 50 }} />
-            </div>
-            <h2>Supply Chain</h2>
-            <div className="card-details">
-              <h3>Trading</h3>
-              <p>
-                Efficient and reliable trading solutions to optimize supply
-                chain operations
-              </p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="logo-div">
-              <AssistantIcon color="primary" sx={{ fontSize: 50 }} />
-            </div>
-            <h2>Consulting & Audit</h2>
-            <div className="card-details">
-              <h3>Regulatory Compliance</h3>
-              <p>
-                Expertise in industry regulations such as US FDA 21 CFR Part 11,
-                EU GMP Annexure 11, GAMP5, MHRA, TGA, and WHO
-              </p>
-              <h3>Audit & Risk Management</h3>
-              <p>
-                Detailed audits, risk assessments, and quality management system
-                implementations
-              </p>
-            </div>
-          </div>
-        </div>
+         <div className="carouselwrapper module-wrapper">
+   
+      <ul onAnimationEnd={handleAnimationEnd} className={`${moveClass} carousel`}>
+        {carouselItems.map((t, index) => 
+            <Card key={t.copy + index} icon={t.icon} copy={t.copy} setCardName={ setCardName } />
+        )}
+              </ul>
+                 <div className="ui">
+        <button onClick={() => setMoveClass('next')} className="prev">
+          <span className="material-icons">chevron_left</span>
+        </button>
+        <button onClick={() => setMoveClass('prev')} className="next">
+          <span className="material-icons">chevron_right</span>
+        </button>
       </div>
-    )
+            </div>
+            </div>  </div> 
+              <HiddenCardSection cardName={cardName} />
+</>
+  )
 }
